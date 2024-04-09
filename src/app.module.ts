@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { UniversitiesModule } from './universities/universities.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { University } from './universities/university.entity';
+import { User } from './users/users.entity';
 
 @Module({
   imports: [
@@ -12,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [],
+      entities: [University, User],
       synchronize: true,
     }),
   ],
