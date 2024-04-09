@@ -1,11 +1,5 @@
 import { University } from 'src/universities/university.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class User {
@@ -23,6 +17,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column({ nullable: true })
+  imageUrl: string;
 
   @ManyToOne(() => University, (university) => university.users)
   university: University;

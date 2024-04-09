@@ -18,4 +18,8 @@ export class UniversitiesService {
   find() {
     return this.repository.find();
   }
+
+  async findOne(id: number) {
+    return this.repository.findOneBy({ id });
+  }
 }

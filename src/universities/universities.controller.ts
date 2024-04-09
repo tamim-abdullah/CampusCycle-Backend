@@ -12,8 +12,13 @@ export class UniversitiesController {
     return university;
   }
 
-  @Get('/')
+  @Get()
   find() {
     return this.universitiesService.find();
+  }
+
+  @Get('/:id')
+  findOne(id: number) {
+    return this.universitiesService.findOne(id);
   }
 }
