@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  Post,
+  Session,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -45,6 +51,32 @@ export class UsersService {
     return this.repository.save(user);
   }
 
+  async signin(email: string, password: string) {
+    const [user] = await this.findByEmail(email);
+
+    if (!user) {
+      throw new NotFoundException('user not found!');
+    }
+
+    const [salt, storedHash] = user.password.split('.');
+    const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+    if (storedHash === hash.toString('hex')) {
+      return user;
+    } else {
+      throw new BadRequestException('bad password!');
+    }
+  }
+
+  @Post('/signout')
+  signOut(@Session() session: any) {
+    session.userId = null;
+  }
+
+  findByEmail(email: string) {
+    return this.repository.find({ where: { email } });
+  }
+
   findOne(id: number) {
     if (!id) {
       return null;
@@ -52,14 +84,25 @@ export class UsersService {
     return this.repository.findOneBy({ id });
   }
 
-  async update(id: number, url: string) {
-    const user = await this.findOne(id);
+  async update_image(userId: number, url: string) {
+    const user = await this.findOne(userId);
 
     if (!user) {
       throw new NotFoundException('user not found!');
     }
 
     user.imageUrl = url;
+    return this.repository.save(user);
+  }
+
+  async update(id: number, attrs: Partial<User>) {
+    const user = await this.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException('user not found!');
+    }
+
+    Object.assign(user, attrs);
     return this.repository.save(user);
   }
 }
