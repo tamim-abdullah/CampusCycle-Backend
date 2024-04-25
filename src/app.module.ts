@@ -6,6 +6,7 @@ import { UniversitiesModule } from './universities/universities.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { University } from './universities/university.entity';
 import { User } from './users/users.entity';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { User } from './users/users.entity';
       entities: [University, User],
       synchronize: true,
     }),
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
