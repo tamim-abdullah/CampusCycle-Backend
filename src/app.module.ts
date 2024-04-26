@@ -6,6 +6,12 @@ import { UniversitiesModule } from './universities/universities.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { University } from './universities/university.entity';
 import { User } from './users/users.entity';
+import { GroupsModule } from './groups/groups.module';
+import { PostsModule } from './posts/posts.module';
+import { CommentsModule } from './comments/comments.module';
+import { Group } from './groups/group.entity';
+import { Post } from './posts/post.entity';
+import { Comment } from './comments/comment.entity';
 
 @Module({
   imports: [
@@ -14,9 +20,12 @@ import { User } from './users/users.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [University, User],
+      entities: [University, User, Group, Post, Comment],
       synchronize: true,
     }),
+    GroupsModule,
+    PostsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

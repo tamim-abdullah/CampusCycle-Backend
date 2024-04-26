@@ -3,6 +3,9 @@ import { University } from 'src/universities/university.entity';
 
 export class UserDto {
   @Expose()
+  id: number;
+
+  @Expose()
   name: string;
 
   @Expose()

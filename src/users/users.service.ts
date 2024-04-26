@@ -39,6 +39,7 @@ export class UsersService {
     const password = salt + '.' + hash.toString('hex');
 
     const university = this.universitiesService.findOne(universityId);
+
     const user = this.repository.create({
       name,
       email,
@@ -48,6 +49,7 @@ export class UsersService {
     });
 
     user.university = await university;
+    console.log(user);
     return this.repository.save(user);
   }
 
@@ -82,6 +84,10 @@ export class UsersService {
       return null;
     }
     return this.repository.findOneBy({ id });
+  }
+
+  findAll() {
+    return this.repository.find();
   }
 
   async update_image(userId: number, url: string) {

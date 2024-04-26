@@ -1,5 +1,12 @@
+import { Post } from 'src/posts/post.entity';
 import { University } from 'src/universities/university.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -23,4 +30,7 @@ export class User {
 
   @ManyToOne(() => University, (university) => university.users)
   university: University;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }

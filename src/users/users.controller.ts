@@ -47,6 +47,7 @@ export class UsersController {
       body.imageUrl,
       body.universityId,
     );
+    console.log(user);
     session.userId = user.id;
     return user;
   }
@@ -74,6 +75,15 @@ export class UsersController {
     }
 
     return user;
+  }
+
+  @Serialize(UserDto)
+  @Get()
+  async findAll() {
+    console.log('handler is running');
+    const users = await this.usersService.findAll();
+
+    return users;
   }
 
   @Patch('/image_upload/:user_id')

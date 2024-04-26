@@ -21,5 +21,6 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptor'
       useClass: CurrentUserInterceptor,
     },
   ],
+  exports: [UsersService],
 })
 export class UsersModule {}
