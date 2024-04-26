@@ -6,7 +6,7 @@ import { EventService } from './events.service';
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
-  @Post()
+  @Post('/create-event')
   async createEvent(@Body() createEventDto: CreateEventDto) {
     return this.eventService.createEvent(createEventDto);
   }

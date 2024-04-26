@@ -11,10 +11,10 @@ export class EventEntity {
   @Column()
   eventName: string;
 
-  @Column()
+  @Column({ type: 'date' })
   startTime: Date;
 
-  @Column()
+  @Column({ type: 'date' })
   endTime: Date;
 
   @Column()
