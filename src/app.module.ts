@@ -12,6 +12,7 @@ import { CommentsModule } from './comments/comments.module';
 import { Group } from './groups/group.entity';
 import { Post } from './posts/post.entity';
 import { Comment } from './comments/comment.entity';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Comment } from './comments/comment.entity';
     GroupsModule,
     PostsModule,
     CommentsModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
