@@ -24,9 +24,6 @@ export class Post {
   upVote: number;
 
   @Column()
-  downVote: number;
-
-  @Column()
   postType: string;
 
   @OneToMany(() => Comment, (comment) => comment.post)

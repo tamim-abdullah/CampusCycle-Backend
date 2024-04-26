@@ -9,8 +9,6 @@ import {
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dtos/create-post.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { UserDto } from 'src/users/dtos/user.dto';
 
 @Controller('posts')
 export class PostsController {

@@ -23,13 +23,11 @@ export class PostsService {
     const user = this.userService.findOne(userId);
     const time = new Date();
     const upVote = 0;
-    const downVote = 0;
 
     const post = this.repository.create({
       content,
       time,
       upVote,
-      downVote,
       postType,
     });
 

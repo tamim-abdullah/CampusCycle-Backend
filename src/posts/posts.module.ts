@@ -10,5 +10,6 @@ import { UsersModule } from 'src/users/users.module';
   imports: [TypeOrmModule.forFeature([Post]), GroupsModule, UsersModule],
   controllers: [PostsController],
   providers: [PostsService],
+  exports: [PostsService],
 })
 export class PostsModule {}
