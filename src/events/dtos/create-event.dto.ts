@@ -1,7 +1,8 @@
-import { IsArray, IsDate, IsString } from "class-validator";
+import { IsArray, IsDate, IsOptional, IsString } from "class-validator";
 import { Type } from 'class-transformer';
 export class CreateEventDto {
   @IsString()
+  @IsOptional()
   image: string;
   
   @IsString()
