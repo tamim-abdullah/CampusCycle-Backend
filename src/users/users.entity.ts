@@ -1,3 +1,4 @@
+import { Comment } from 'src/comments/comment.entity';
 import { Post } from 'src/posts/post.entity';
 import { University } from 'src/universities/university.entity';
 import {
@@ -34,6 +35,6 @@ export class User {
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 
-  @OneToMany(() => Post, (post) => post.user)
+  @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 }

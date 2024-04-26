@@ -24,7 +24,7 @@ import { SignInUserDto } from './dtos/signin-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('users')
-@Serialize(UserDto)
+//@Serialize(UserDto)
 export class UsersController {
   constructor(
     private usersService: UsersService,
@@ -38,6 +38,7 @@ export class UsersController {
   }
 
   @Post('/signup')
+  //@Serialize(UserDto)
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.usersService.create(
       body.name,
@@ -47,6 +48,7 @@ export class UsersController {
       body.imageUrl,
       body.universityId,
     );
+    console.log('------------------------------------------');
     console.log(user);
     session.userId = user.id;
     return user;
@@ -64,17 +66,20 @@ export class UsersController {
     session.userId = null;
   }
 
-  @Serialize(UserDto)
+  //@Serialize(UserDto)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     console.log('handler is running');
     const user = await this.usersService.findOne(parseInt(id));
+    console.log(user);
 
     if (!user) {
       throw new NotFoundException(`user with id:${id} not found!`);
     }
-
-    return user;
+    const userDto = UserDto.fromEntity(user);
+    console.log('++++++++++++++++++++++++++++++++++++++++');
+    console.log(userDto);
+    return userDto;
   }
 
   @Serialize(UserDto)

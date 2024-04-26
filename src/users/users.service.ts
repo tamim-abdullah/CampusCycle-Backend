@@ -38,8 +38,8 @@ export class UsersService {
     const hash = (await scrypt(password2, salt, 32)) as Buffer;
     const password = salt + '.' + hash.toString('hex');
 
-    const university = this.universitiesService.findOne(universityId);
-
+    const university = await this.universitiesService.findOne(universityId);
+    console.log(university);
     const user = this.repository.create({
       name,
       email,
@@ -79,11 +79,15 @@ export class UsersService {
     return this.repository.find({ where: { email } });
   }
 
-  findOne(id: number) {
-    if (!id) {
-      return null;
-    }
-    return this.repository.findOneBy({ id });
+  async findOne(id: number) {
+    const user = await this.repository.findOne({
+      where: {
+        id,
+      },
+      relations: ['university'],
+    });
+    console.log(user);
+    return user;
   }
 
   findAll() {
