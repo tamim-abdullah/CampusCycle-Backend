@@ -5,16 +5,16 @@ export class EventEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: true})
   image: string;
 
   @Column()
   eventName: string;
 
-  @Column()
+  @Column({ type: 'date' })
   startTime: Date;
 
-  @Column()
+  @Column({ type: 'date' })
   endTime: Date;
 
   @Column()

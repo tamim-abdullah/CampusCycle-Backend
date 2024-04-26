@@ -1,8 +1,25 @@
+import { IsArray, IsDate, IsOptional, IsString } from "class-validator";
+import { Type } from 'class-transformer';
 export class CreateEventDto {
-    readonly image: string;
-    readonly eventName: string;
-    readonly startTime: Date;
-    readonly endTime: Date;
-    readonly details: string;
-    readonly tags: string[];
-  }
+  @IsString()
+  @IsOptional()
+  image: string;
+  
+  @IsString()
+  eventName: string;
+
+  @Type(() => Date)
+  @IsDate()
+  startTime: Date;
+
+  @Type(() => Date)
+  @IsDate()
+  endTime: Date;
+
+  @IsString()
+  details: string;
+  
+  @IsString({ each: true })
+  @IsArray()
+  tags: string[];
+}
