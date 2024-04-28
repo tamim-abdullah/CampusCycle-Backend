@@ -34,7 +34,23 @@ export class CommentsService {
   async getCommentsByPostId(postId: number) {
     const post = await this.postsService.getPostById(postId);
 
-    return this.repository.find({ where: { post } });
+    const comments = await this.repository.findOne({
+      where: {
+        post,
+      },
+      relations: ['post', 'user'],
+    });
+    return comments;
+  }
+
+  async getCommentsById(id: number) {
+    const comment = await this.repository.findOne({
+      where: {
+        id,
+      },
+      relations: ['post', 'user'],
+    });
+    return comment;
   }
 
   async upVote(id: number) {

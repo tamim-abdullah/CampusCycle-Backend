@@ -25,9 +25,14 @@ export class CommentsController {
     return post;
   }
 
-  @Get('/:postId')
+  @Get('/posts/:postId')
   getCommentsByPostId(@Param('postId') postId: string) {
     return this.commentsService.getCommentsByPostId(parseInt(postId));
+  }
+
+  @Get('/:id')
+  getCommentBytId(@Param('id') id: string) {
+    return this.commentsService.getCommentsByPostId(parseInt(id));
   }
 
   @Patch('upvote/:id') // Here id means comment-id

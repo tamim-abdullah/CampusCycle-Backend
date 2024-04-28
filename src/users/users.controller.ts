@@ -69,7 +69,6 @@ export class UsersController {
   //@Serialize(UserDto)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
-    console.log('handler is running');
     const user = await this.usersService.findOne(parseInt(id));
     console.log(user);
 
@@ -77,8 +76,7 @@ export class UsersController {
       throw new NotFoundException(`user with id:${id} not found!`);
     }
     const userDto = UserDto.fromEntity(user);
-    console.log('++++++++++++++++++++++++++++++++++++++++');
-    console.log(userDto);
+
     return userDto;
   }
 

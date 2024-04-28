@@ -43,8 +43,14 @@ export class PostsService {
     return this.repository.find({ where: { group } });
   }
 
-  getPostById(id: number) {
-    return this.repository.findOneBy({ id });
+  async getPostById(id: number) {
+    const user = await this.repository.findOne({
+      where: {
+        id,
+      },
+      relations: ['group', 'user'],
+    });
+    return user;
   }
 
   async upVote(id: number) {

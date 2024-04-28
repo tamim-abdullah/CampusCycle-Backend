@@ -48,7 +48,7 @@ export class UsersService {
       imageUrl,
     });
 
-    user.university = await university;
+    user.university = university;
     console.log(user);
     return this.repository.save(user);
   }
@@ -82,11 +82,10 @@ export class UsersService {
   async findOne(id: number) {
     const user = await this.repository.findOne({
       where: {
-        id,
+        id
       },
-      relations: ['university'],
+      relations: ['university']
     });
-    console.log(user);
     return user;
   }
 
