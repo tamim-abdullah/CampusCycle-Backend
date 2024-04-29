@@ -39,18 +39,23 @@ export class PostsService {
 
   async getPostByGroupId(groupId: number) {
     const group = await this.groupsService.findOne(groupId);
+    console.log(groupId);
+    console.log(group);
 
-    return this.repository.find({ where: { group } });
+    return this.repository.find({
+      where: { group },
+      relations: ['group', 'user'],
+    });
   }
 
   async getPostById(id: number) {
-    const user = await this.repository.findOne({
+    const post = await this.repository.findOne({
       where: {
         id,
       },
       relations: ['group', 'user'],
     });
-    return user;
+    return post;
   }
 
   async upVote(id: number) {
@@ -58,5 +63,9 @@ export class PostsService {
     post.upVote = post.upVote + 1;
 
     return this.repository.save(post);
+  }
+
+  async getAll() {
+    return this.repository.find({ relations: ['group', 'user'] });
   }
 }

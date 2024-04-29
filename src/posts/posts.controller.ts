@@ -29,8 +29,8 @@ export class PostsController {
   }
 
   @Get('group/:groupId')
-  getPostByGroupId(groupId: number) {
-    return this.postsService.getPostByGroupId(groupId);
+  getPostByGroupId(@Param('groupId') groupId: string) {
+    return this.postsService.getPostByGroupId(parseInt(groupId));
   }
 
   @Get('/:id')
@@ -41,5 +41,10 @@ export class PostsController {
   @Patch('upvote/:id')
   upVote(@Param('id') id: string) {
     return this.postsService.upVote(parseInt(id));
+  }
+
+  @Get()
+  getAll() {
+    return this.postsService.getAll();
   }
 }
