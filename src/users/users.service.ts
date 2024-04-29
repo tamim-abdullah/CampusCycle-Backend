@@ -11,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 import { UniversitiesService } from './../universities/universities.service';
+import { GroupsService } from './../groups/groups.service';
 
 const scrypt = promisify(_scrypt);
 
@@ -21,6 +22,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User) repository: Repository<User>,
     private universitiesService: UniversitiesService,
+    private groupsService: GroupsService,
   ) {
     this.repository = repository;
   }
@@ -79,12 +81,12 @@ export class UsersService {
     return this.repository.find({ where: { email } });
   }
 
-  async findOne(id: number) {
+  async findOne(userId: number) {
     const user = await this.repository.findOne({
       where: {
-        id
+        id: userId,
       },
-      relations: ['university']
+      relations: ['university', 'groups'],
     });
     return user;
   }
@@ -113,5 +115,32 @@ export class UsersService {
 
     Object.assign(user, attrs);
     return this.repository.save(user);
+  }
+
+  async joinGroup(userId: number, groupId: number) {
+    const user = await this.repository.findOne({
+      where: { id: userId },
+      relations: ['groups'],
+    });
+    const group = await this.groupsService.findOne(groupId);
+
+    user.groups = user.groups || []; // Initialize groups array if it's undefined
+
+    user.groups.push(group);
+    return this.repository.save(user);
+  }
+
+  async findGroupsByUserId(userId: number) {
+    const user = await this.repository.findOne({
+      where: { id: userId },
+      relations: ['groups'],
+    });
+
+    return user.groups;
+  }
+
+  async findUsersByGroupId(groupId: number) {
+    const group = await this.groupsService.findWithUser(groupId);
+    return group;
   }
 }

@@ -34,7 +34,6 @@ export class PostsController {
   }
 
   @Get('/:id')
-  @Serialize(UserDto)
   getPostById(@Param('id') id: string) {
     return this.postsService.getPostById(parseInt(id));
   }

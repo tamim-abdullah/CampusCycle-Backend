@@ -1,4 +1,5 @@
 import { Comment } from 'src/comments/comment.entity';
+import { Group } from 'src/groups/group.entity';
 import { Post } from 'src/posts/post.entity';
 import { University } from 'src/universities/university.entity';
 import {
@@ -7,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -37,4 +40,8 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  @ManyToMany(() => Group, (group) => group.users)
+  @JoinTable()
+  groups: Group[];
 }

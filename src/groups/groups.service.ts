@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Group } from './group.entity';
 import { Repository } from 'typeorm';
 import { CreateGroupDto } from './dtos/create-group.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class GroupsService {
@@ -19,5 +20,14 @@ export class GroupsService {
 
   async findOne(id: number) {
     return this.repository.findOneBy({ id });
+  }
+
+  async findWithUser(groupId: number) {
+    const group = await this.repository.findOne({
+      where: { id: groupId },
+      relations: ['users'],
+    });
+
+    return group.users;
   }
 }

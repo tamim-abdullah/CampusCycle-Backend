@@ -21,4 +21,9 @@ export class GroupsController {
   findById(@Param('id') id: string) {
     return this.groupsService.findOne(parseInt(id));
   }
+
+  @Get('/users/:groupId')
+  findUsersByGroupId(@Param('groupId') groupId: string) {
+    return this.groupsService.findWithUser(parseInt(groupId));
+  }
 }

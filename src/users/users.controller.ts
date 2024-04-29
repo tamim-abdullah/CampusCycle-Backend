@@ -22,6 +22,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './users.entity';
 import { SignInUserDto } from './dtos/signin-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserGroupJoinDto } from './dtos/user-group-join.dto';
 
 @Controller('users')
 //@Serialize(UserDto)
@@ -70,17 +71,19 @@ export class UsersController {
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.usersService.findOne(parseInt(id));
+    console.log('_____________________________________________');
     console.log(user);
 
     if (!user) {
       throw new NotFoundException(`user with id:${id} not found!`);
     }
     const userDto = UserDto.fromEntity(user);
+    console.log('_____________________________________________');
+    console.log(userDto);
 
     return userDto;
   }
 
-  @Serialize(UserDto)
   @Get()
   async findAll() {
     console.log('handler is running');
@@ -99,5 +102,15 @@ export class UsersController {
   @Patch('/:id')
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.usersService.update(parseInt(id), body);
+  }
+
+  @Post('/groups/join')
+  joinGroup(@Body() body: UserGroupJoinDto) {
+    return this.usersService.joinGroup(body.userId, body.groupId);
+  }
+
+  @Get('/groups/:userId')
+  getGroupsByUserId(@Param('userId') userId: string) {
+    return this.usersService.findGroupsByUserId(parseInt(userId));
   }
 }

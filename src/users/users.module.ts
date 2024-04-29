@@ -8,9 +8,10 @@ import { UsersImageService } from './users-image.service';
 import { CloudinaryService } from './users-image-cloudinary.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { GroupsModule } from 'src/groups/groups.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), UniversitiesModule],
+  imports: [TypeOrmModule.forFeature([User]), UniversitiesModule, GroupsModule],
   controllers: [UsersController],
   providers: [
     UsersService,

@@ -1,5 +1,13 @@
 import { Post } from 'src/posts/post.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/users.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Group {
@@ -11,4 +19,8 @@ export class Group {
 
   @OneToMany(() => Post, (post) => post.group)
   posts: Post[];
+
+  @ManyToMany(() => User, (user) => user.groups)
+  @JoinTable()
+  users: User[];
 }
