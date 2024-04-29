@@ -96,4 +96,16 @@ export class PostsService {
 
     return post.postTags;
   }
+
+  async getUniversityIdByPostId(postId: number) {
+    const post = await this.repository.findOne({
+      where: { id: postId },
+      relations: ['user'],
+    });
+
+    const user = post.user;
+
+    const university = this.userService.findUniversityByUserId(user.id);
+    return university;
+  }
 }

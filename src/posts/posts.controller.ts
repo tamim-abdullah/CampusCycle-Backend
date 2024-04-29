@@ -58,4 +58,9 @@ export class PostsController {
   getPostTagsByPostId(@Param('postId') postId: string) {
     return this.postsService.getPostTagsByPostId(parseInt(postId));
   }
+
+  @Get('/university/:postId')
+  getUniversityIdByPostId(@Param('postId') postId: string) {
+    return this.postsService.getUniversityIdByPostId(parseInt(postId));
+  }
 }

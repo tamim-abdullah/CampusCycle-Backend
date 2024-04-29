@@ -138,4 +138,13 @@ export class UsersService {
 
     return user.groups;
   }
+
+  async findUniversityByUserId(userId: number) {
+    const user = await this.repository.findOne({
+      where: { id: userId },
+      relations: ['university'],
+    });
+
+    return user.university;
+  }
 }
