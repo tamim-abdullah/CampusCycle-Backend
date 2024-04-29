@@ -1,9 +1,11 @@
 import { Comment } from 'src/comments/comment.entity';
 import { Group } from 'src/groups/group.entity';
+import { PostTag } from 'src/posttags/posttag.entity';
 import { User } from 'src/users/users.entity';
 import {
   Column,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -34,4 +36,7 @@ export class Post {
 
   @ManyToOne(() => User, (user) => user.posts)
   user: User;
+
+  @ManyToMany(() => PostTag, (postTag) => postTag.posts)
+  postTags: PostTag[];
 }

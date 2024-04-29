@@ -4,6 +4,7 @@ import { Post } from './post.entity';
 import { Repository } from 'typeorm';
 import { GroupsService } from './../groups/groups.service';
 import { UsersService } from './../users/users.service';
+import { PostTagsService } from './../posttags/posttags.service';
 
 @Injectable()
 export class PostsService {
@@ -11,6 +12,7 @@ export class PostsService {
     @InjectRepository(Post) private repository: Repository<Post>,
     private groupsService: GroupsService,
     private userService: UsersService,
+    private postTagsService: PostTagsService,
   ) {}
 
   async create(
@@ -67,5 +69,31 @@ export class PostsService {
 
   async getAll() {
     return this.repository.find({ relations: ['group', 'user'] });
+  }
+
+  async addPostTag(postId: number, postTagId: number) {
+    const post = await this.repository.findOne({
+      where: { id: postId },
+      relations: ['postTags'],
+    });
+    console.log(post);
+
+    // Now the hardest part, bring the postTag service here, it gives me headache
+    const postTag = await this.postTagsService.findById(postTagId);
+
+    post.postTags = post.postTags || []; // Initialize groups array if it's undefined
+
+    post.postTags.push(postTag);
+
+    return this.repository.save(post);
+  }
+
+  async getPostTagsByPostId(postId: number) {
+    const post = await this.repository.findOne({
+      where: { id: postId },
+      relations: ['postTags'],
+    });
+
+    return post.postTags;
   }
 }

@@ -11,6 +11,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from 'src/users/dtos/user.dto';
+import { PostPostTagAddDto } from './dtos/post-posttags-add.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -46,5 +47,15 @@ export class PostsController {
   @Get()
   getAll() {
     return this.postsService.getAll();
+  }
+
+  @Post('/posttags/add')
+  addPostTag(@Body() body: PostPostTagAddDto) {
+    return this.postsService.addPostTag(body.postId, body.postTagId);
+  }
+
+  @Get('/posttags/:postId')
+  getPostTagsByPostId(@Param('postId') postId: string) {
+    return this.postsService.getPostTagsByPostId(parseInt(postId));
   }
 }

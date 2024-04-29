@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PostTagsService } from './posttags.service';
 import { CreatePostTagDto } from './dtos/create-posttag.dto';
 
@@ -15,5 +15,10 @@ export class PosttagsController {
   @Get()
   getAll() {
     return this.postTagsService.getAll();
+  }
+
+  @Get('/posts/:postTagId')
+  findUsersByGroupId(@Param('postTagId') postTagId: string) {
+    return this.postTagsService.findWithPost(parseInt(postTagId));
   }
 }

@@ -138,9 +138,4 @@ export class UsersService {
 
     return user.groups;
   }
-
-  async findUsersByGroupId(groupId: number) {
-    const group = await this.groupsService.findWithUser(groupId);
-    return group;
-  }
 }

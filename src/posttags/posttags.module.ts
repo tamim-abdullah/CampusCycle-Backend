@@ -8,5 +8,6 @@ import { PostTag } from './posttag.entity';
   imports: [TypeOrmModule.forFeature([PostTag])],
   controllers: [PosttagsController],
   providers: [PostTagsService],
+  exports: [PostTagsService],
 })
 export class PosttagsModule {}

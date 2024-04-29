@@ -19,4 +19,17 @@ export class PostTagsService {
     const postTags = this.repository.find();
     return postTags;
   }
+
+  async findById(id: number) {
+    return this.repository.findOneBy({ id });
+  }
+
+  async findWithPost(postTagId: number) {
+    const postTag = await this.repository.findOne({
+      where: { id: postTagId },
+      relations: ['posts'],
+    });
+
+    return postTag.posts;
+  }
 }

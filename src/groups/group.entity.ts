@@ -21,6 +21,5 @@ export class Group {
   posts: Post[];
 
   @ManyToMany(() => User, (user) => user.groups)
-  @JoinTable()
   users: User[];
 }
