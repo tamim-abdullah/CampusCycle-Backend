@@ -20,6 +20,7 @@ import { DonationsModule } from './donations/donations.module';
 import { DonationAmountsModule } from './donation_amounts/donation_amounts.module';
 import { Donation } from './donations/donation.entity';
 import { DonationAmount } from './donation_amounts/donation_amount.entity';
+import { EventTag } from './eventtags/eventtag.entity';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { DonationAmount } from './donation_amounts/donation_amount.entity';
         University,
         User,
         EventEntity,
+        EventTag,
         Group,
         Post,
         Comment,
