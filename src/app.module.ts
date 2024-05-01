@@ -16,6 +16,10 @@ import { EventsModule } from './events/events.module';
 import { EventEntity } from './events/events.entity';
 import { PosttagsModule } from './posttags/posttags.module';
 import { PostTag } from './posttags/posttag.entity';
+import { DonationsModule } from './donations/donations.module';
+import { DonationAmountsModule } from './donation_amounts/donation_amounts.module';
+import { Donation } from './donations/donation.entity';
+import { DonationAmount } from './donation_amounts/donation_amount.entity';
 
 @Module({
   imports: [
@@ -24,7 +28,17 @@ import { PostTag } from './posttags/posttag.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [University, User, EventEntity, Group, Post, Comment, PostTag],
+      entities: [
+        University,
+        User,
+        EventEntity,
+        Group,
+        Post,
+        Comment,
+        PostTag,
+        Donation,
+        DonationAmount,
+      ],
       synchronize: true,
     }),
     GroupsModule,
@@ -32,6 +46,8 @@ import { PostTag } from './posttags/posttag.entity';
     CommentsModule,
     EventsModule,
     PosttagsModule,
+    DonationsModule,
+    DonationAmountsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

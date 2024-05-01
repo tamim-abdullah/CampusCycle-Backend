@@ -1,4 +1,6 @@
 import { Comment } from 'src/comments/comment.entity';
+import { DonationAmount } from 'src/donation_amounts/donation_amount.entity';
+import { Donation } from 'src/donations/donation.entity';
 import { Group } from 'src/groups/group.entity';
 import { Post } from 'src/posts/post.entity';
 import { University } from 'src/universities/university.entity';
@@ -10,6 +12,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -44,4 +47,13 @@ export class User {
   @ManyToMany(() => Group, (group) => group.users)
   @JoinTable()
   groups: Group[];
+
+  @OneToMany(() => Donation, (donation) => donation.creator)
+  creatorDonations: Donation[];
+
+  @OneToMany(() => Donation, (donation) => donation.organizer)
+  organizerDonations: Donation[];
+
+  @OneToMany(() => DonationAmount, (donationAmount) => donationAmount.donor)
+  donationAmounts: DonationAmount[];
 }
