@@ -20,16 +20,13 @@ import { DonationsModule } from './donations/donations.module';
 import { DonationAmountsModule } from './donation_amounts/donation_amounts.module';
 import { Donation } from './donations/donation.entity';
 import { DonationAmount } from './donation_amounts/donation_amount.entity';
-<<<<<<< HEAD
 import { ProductsModule } from './products/products.module';
 import { ProductImagesModule } from './product-images/product-images.module';
 import { ProductTypesModule } from './product-types/product-types.module';
 import { Product } from './products/product.entity';
 import { ProductType } from './product-types/product-types.entity';
 import { ProductImage } from './product-images/product-image.entity';
-=======
 import { EventTag } from './eventtags/eventtag.entity';
->>>>>>> 76ce092e1bf71f5f01052a0043172e8a7da2b032
 
 @Module({
   imports: [
