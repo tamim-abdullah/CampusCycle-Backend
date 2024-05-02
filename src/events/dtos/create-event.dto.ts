@@ -19,7 +19,7 @@ export class CreateEventDto {
   @IsString()
   details: string;
   
-  @IsString({ each: true })
-  @IsArray()
-  tags: string[];
+  // @IsString({ each: true })
+  // @IsArray()
+  // eventTags: string[];
 }

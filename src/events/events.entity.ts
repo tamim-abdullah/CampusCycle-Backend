@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { EventTag } from 'src/eventtags/eventtag.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
 export class EventEntity {
@@ -20,6 +21,6 @@ export class EventEntity {
   @Column()
   details: string;
 
-  @Column('simple-array')
-  tags: string[];
+  @ManyToMany(() => EventTag, (eventTag) => eventTag.events)
+  eventTags: EventTag[];
 }
