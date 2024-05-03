@@ -28,6 +28,9 @@ export class Post {
   @Column()
   postType: string;
 
+  @Column()
+  imageurl: string;
+
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 

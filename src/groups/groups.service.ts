@@ -30,4 +30,11 @@ export class GroupsService {
 
     return group.users;
   }
+
+  async update_image(groupId: number, url: string) {
+    const group = await this.repository.findOne({ where: { id: groupId } });
+
+    group.imageurl = url;
+    return this.repository.save(group);
+  }
 }

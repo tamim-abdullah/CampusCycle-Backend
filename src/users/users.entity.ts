@@ -1,3 +1,4 @@
+import { Bidding } from 'src/biddings/bidding.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { DonationAmount } from 'src/donation_amounts/donation_amount.entity';
 import { Donation } from 'src/donations/donation.entity';
@@ -32,6 +33,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  phoneNo: string;
+
   @Column({ nullable: true })
   imageUrl: string;
 
@@ -56,4 +60,7 @@ export class User {
 
   @OneToMany(() => DonationAmount, (donationAmount) => donationAmount.donor)
   donationAmounts: DonationAmount[];
+
+  @OneToMany(() => Bidding, (bidding) => bidding.user)
+  biddings: Bidding[];
 }

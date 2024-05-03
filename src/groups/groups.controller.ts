@@ -1,10 +1,24 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateGroupDto } from './dtos/create-group.dto';
 import { GroupsService } from './groups.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { GroupsImageService } from './groups-image.service';
 
 @Controller('groups')
 export class GroupsController {
-  constructor(private groupsService: GroupsService) {}
+  constructor(
+    private groupsService: GroupsService,
+    private groupsImageService: GroupsImageService,
+  ) {}
 
   @Post('/create')
   createGroup(@Body() body: CreateGroupDto) {
@@ -25,5 +39,12 @@ export class GroupsController {
   @Get('/users/:groupId')
   findUsersByGroupId(@Param('groupId') groupId: string) {
     return this.groupsService.findWithUser(parseInt(groupId));
+  }
+
+  @Patch('/image_upload/:group_id')
+  @UseInterceptors(FileInterceptor('image'))
+  async upload(@UploadedFile() file, @Param('group_id') group_id: string) {
+    const url = await this.groupsImageService.uploadImage(file);
+    return this.groupsService.update_image(parseInt(group_id), url);
   }
 }

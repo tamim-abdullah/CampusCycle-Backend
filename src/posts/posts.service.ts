@@ -108,4 +108,11 @@ export class PostsService {
     const university = this.userService.findUniversityByUserId(user.id);
     return university;
   }
+
+  async update_image(postId: number, url: string) {
+    const post = await this.repository.findOne({ where: { id: postId } });
+
+    post.imageurl = url;
+    return this.repository.save(post);
+  }
 }

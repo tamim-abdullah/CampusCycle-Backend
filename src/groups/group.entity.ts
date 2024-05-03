@@ -17,6 +17,9 @@ export class Group {
   @Column()
   name: string;
 
+  @Column()
+  imageurl: string;
+
   @OneToMany(() => Post, (post) => post.group)
   posts: Post[];
 

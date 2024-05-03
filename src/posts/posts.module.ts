@@ -6,6 +6,8 @@ import { Post } from './post.entity';
 import { GroupsModule } from 'src/groups/groups.module';
 import { UsersModule } from 'src/users/users.module';
 import { PosttagsModule } from 'src/posttags/posttags.module';
+import { CloudinaryService } from 'src/users/users-image-cloudinary.service';
+import { PostsImageService } from './posts-image.service';
 
 @Module({
   imports: [
@@ -15,7 +17,7 @@ import { PosttagsModule } from 'src/posttags/posttags.module';
     PosttagsModule,
   ],
   controllers: [PostsController],
-  providers: [PostsService],
+  providers: [PostsService, CloudinaryService, PostsImageService],
   exports: [PostsService],
 })
 export class PostsModule {}

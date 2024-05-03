@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from './product.entity';
 import { Repository } from 'typeorm';
 import { ProductTypesService } from './../product-types/product-types.service';
+import { ProductBidded } from 'src/products-bidded/product-bidded.entity';
 
 @Injectable()
-export class ProductsService {
+export class ProductsBiddedService {
   constructor(
-    @InjectRepository(Product) private repository: Repository<Product>,
+    @InjectRepository(ProductBidded)
+    private repository: Repository<ProductBidded>,
     private productTypesService: ProductTypesService,
   ) {}
 
@@ -22,7 +23,7 @@ export class ProductsService {
     const productType =
       await this.productTypesService.findProductTypeById(productTypeId);
 
-    const product = this.repository.create({
+    const productBidded = this.repository.create({
       title: title,
       time: new Date(),
       description: description,
@@ -31,21 +32,18 @@ export class ProductsService {
       sellingCondition: sellingCondition,
     });
 
-    product.productType = productType;
-    return this.repository.save(product);
+    productBidded.productType = productType;
+    return this.repository.save(productBidded);
   }
 
   async find() {
-    return this.repository.find({
-      where: { sellingCondition: 0 },
-      relations: ['productType', 'productImages'],
-    });
+    return this.repository.find({ where: { sellingCondition: 0 } });
   }
 
   async getProductById(id: number) {
     return this.repository.findOne({
-      where: { id, sellingCondition: 0 },
-      relations: ['productType', 'productImages'],
+      where: { id: id, sellingCondition: 0 },
+      relations: ['productType', 'images'],
     });
   }
 
@@ -54,16 +52,14 @@ export class ProductsService {
       await this.productTypesService.findProductTypeById(productTypeId);
     const products = this.repository.find({
       where: { productType: productType, sellingCondition: 0 },
-      relations: ['productType', 'productImages'],
+      relations: ['productType', 'images'],
     });
 
     return products;
   }
 
   async sell(id: number) {
-    const product = await this.repository.findOne({
-      where: { id: id, sellingCondition: 0 },
-    });
+    const product = await this.repository.findOne({ where: { id: id } });
     product.sellingCondition = 1;
     this.repository.save(product);
   }

@@ -27,6 +27,12 @@ import { Product } from './products/product.entity';
 import { ProductType } from './product-types/product-types.entity';
 import { ProductImage } from './product-images/product-image.entity';
 import { EventTag } from './eventtags/eventtag.entity';
+import { ProductsBiddedModule } from './products-bidded/products-bidded.module';
+import { BiddingsModule } from './biddings/biddings.module';
+import { ProductBidded } from './products-bidded/product-bidded.entity';
+import { Bidding } from './biddings/bidding.entity';
+import { ProductBiddedImagesModule } from './product-bidded-images/product-bidded-images.module';
+import { ProductBiddedImage } from './product-bidded-images/product-bidded-image.entity';
 
 @Module({
   imports: [
@@ -49,6 +55,9 @@ import { EventTag } from './eventtags/eventtag.entity';
         Product,
         ProductType,
         ProductImage,
+        ProductBidded,
+        ProductBiddedImage,
+        Bidding,
       ],
       synchronize: true,
     }),
@@ -62,6 +71,9 @@ import { EventTag } from './eventtags/eventtag.entity';
     ProductsModule,
     ProductImagesModule,
     ProductTypesModule,
+    ProductsBiddedModule,
+    BiddingsModule,
+    ProductBiddedImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

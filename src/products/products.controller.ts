@@ -34,4 +34,9 @@ export class ProductsController {
   async getProductByProductTypeId(@Param('id') id: number) {
     return this.productsService.getProductByProductTypeId(id);
   }
+
+  @Post('/:id')
+  async sellProduct(@Param('id') id: number) {
+    return this.productsService.sell(id);
+  }
 }

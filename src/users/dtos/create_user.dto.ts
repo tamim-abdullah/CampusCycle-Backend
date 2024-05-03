@@ -23,6 +23,9 @@ export class CreateUserDto {
   @IsOptional()
   imageUrl: string | null;
 
+  @IsString()
+  phoneNo: string;
+
   @IsNumber()
   universityId: number;
 }

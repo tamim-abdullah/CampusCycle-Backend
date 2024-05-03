@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DonationAmount } from './donation_amount.entity';
 import { UsersModule } from 'src/users/users.module';
 import { DonationsModule } from 'src/donations/donations.module';
+import { CloudinaryService } from 'src/users/users-image-cloudinary.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { DonationsModule } from 'src/donations/donations.module';
     DonationsModule,
   ],
   controllers: [DonationAmountsController],
-  providers: [DonationAmountsService],
+  providers: [DonationAmountsService, CloudinaryService],
 })
 export class DonationAmountsModule {}

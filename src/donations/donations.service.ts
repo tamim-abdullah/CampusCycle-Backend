@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Donation } from './donation.entity';
 import { Repository } from 'typeorm';
@@ -41,5 +41,25 @@ export class DonationsService {
     });
     console.log(donation);
     return donation;
+  }
+
+  async getDonations() {
+    const donations = this.repository.find({
+      relations: ['creator', 'organizer'],
+    });
+    return donations;
+  }
+
+  async update_image(donationId: number, url: string) {
+    const donation = await this.repository.findOne({
+      where: { id: donationId },
+    });
+
+    if (!donation) {
+      throw new NotFoundException('donation not found!');
+    }
+
+    donation.imageUrl = url;
+    return this.repository.save(donation);
   }
 }
