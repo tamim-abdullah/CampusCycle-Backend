@@ -77,5 +77,7 @@ export class BiddingsService {
   async sellAtMaxBiddingPrice(productBiddedId: number) {
     const productBidded =
       await this.productsBiddedService.getProductById(productBiddedId);
+    
+    
   }
 }

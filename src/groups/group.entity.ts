@@ -17,7 +17,7 @@ export class Group {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   imageurl: string;
 
   @OneToMany(() => Post, (post) => post.group)

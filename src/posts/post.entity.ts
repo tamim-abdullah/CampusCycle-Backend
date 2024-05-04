@@ -28,7 +28,7 @@ export class Post {
   @Column()
   postType: string;
 
-  @Column()
+  @Column({ nullable: true })
   imageurl: string;
 
   @OneToMany(() => Comment, (comment) => comment.post)

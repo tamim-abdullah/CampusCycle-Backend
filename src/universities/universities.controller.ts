@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateUniversityDto } from './dtos/create-university.dto';
 import { UniversitiesService } from './universities.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('universities')
 export class UniversitiesController {

@@ -48,6 +48,7 @@ export class UsersController {
       body.password,
       body.imageUrl,
       body.universityId,
+      body.phoneNo,
     );
     console.log('------------------------------------------');
     console.log(user);

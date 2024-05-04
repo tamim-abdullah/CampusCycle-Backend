@@ -34,6 +34,7 @@ export class UsersService {
     password2: string,
     imageUrl: string,
     universityId: number,
+    phoneNo: string,
   ) {
     // Hash the user's password
     const salt = randomBytes(8).toString('hex');
@@ -48,6 +49,7 @@ export class UsersService {
       dob,
       password,
       imageUrl,
+      phoneNo,
     });
 
     user.university = university;
