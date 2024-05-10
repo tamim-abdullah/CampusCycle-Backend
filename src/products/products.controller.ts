@@ -14,7 +14,7 @@ export class ProductsController {
       body.price,
       body.productTypeId,
       body.lastSellingDate,
-      body.sellingCondition,
+      body.sellerId,
     );
 
     return product;

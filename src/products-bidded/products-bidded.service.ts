@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProductTypesService } from './../product-types/product-types.service';
 import { ProductBidded } from 'src/products-bidded/product-bidded.entity';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class ProductsBiddedService {
@@ -10,6 +11,7 @@ export class ProductsBiddedService {
     @InjectRepository(ProductBidded)
     private repository: Repository<ProductBidded>,
     private productTypesService: ProductTypesService,
+    private usersService: UsersService,
   ) {}
 
   async create(
@@ -18,10 +20,12 @@ export class ProductsBiddedService {
     price: number,
     productTypeId: number,
     lastSellingDate: Date,
-    sellingCondition: number,
+    sellerId: number,
   ) {
     const productType =
       await this.productTypesService.findProductTypeById(productTypeId);
+
+    const seller = await this.usersService.findOne(sellerId);
 
     const productBidded = this.repository.create({
       title: title,
@@ -29,7 +33,8 @@ export class ProductsBiddedService {
       description: description,
       price: price,
       lastSellingDate: new Date(lastSellingDate),
-      sellingCondition: sellingCondition,
+      sellingCondition: 0,
+      seller: seller,
     });
 
     productBidded.productType = productType;
@@ -37,7 +42,10 @@ export class ProductsBiddedService {
   }
 
   async find() {
-    return this.repository.find({ where: { sellingCondition: 0 } });
+    return this.repository.find({
+      where: { sellingCondition: 0 },
+      relations: ['productType', 'images'],
+    });
   }
 
   async getProductById(id: number) {

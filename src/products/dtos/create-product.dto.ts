@@ -23,6 +23,11 @@ export class CreateProductDto {
   @IsDateString()
   lastSellingDate: Date;
 
+  /*
   @IsNumber()
   sellingCondition: number; // 0 means not sold, 1 means sold
+  */
+
+  @IsNumber()
+  sellerId: number;
 }

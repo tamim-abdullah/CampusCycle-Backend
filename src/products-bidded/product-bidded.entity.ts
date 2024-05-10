@@ -49,4 +49,7 @@ export class ProductBidded {
 
   @ManyToOne(() => User, (user) => user.biddings)
   user: User;
+
+  @ManyToOne(() => User, (user) => user.products)
+  seller: User;
 }

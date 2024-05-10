@@ -4,6 +4,8 @@ import { DonationAmount } from 'src/donation_amounts/donation_amount.entity';
 import { Donation } from 'src/donations/donation.entity';
 import { Group } from 'src/groups/group.entity';
 import { Post } from 'src/posts/post.entity';
+import { ProductBidded } from 'src/products-bidded/product-bidded.entity';
+import { Product } from 'src/products/product.entity';
 import { University } from 'src/universities/university.entity';
 import {
   Entity,
@@ -63,4 +65,10 @@ export class User {
 
   @OneToMany(() => Bidding, (bidding) => bidding.user)
   biddings: Bidding[];
+
+  @OneToMany(() => Product, (product) => product.seller)
+  products: Product[];
+
+  @OneToMany(() => ProductBidded, (productBidded) => productBidded.seller)
+  productsBidded: ProductBidded[];
 }

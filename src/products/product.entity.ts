@@ -1,5 +1,6 @@
 import { ProductImage } from 'src/product-images/product-image.entity';
 import { ProductType } from 'src/product-types/product-types.entity';
+import { User } from 'src/users/users.entity';
 import {
   Column,
   Entity,
@@ -36,4 +37,7 @@ export class Product {
 
   @OneToMany(() => ProductImage, (productImage) => productImage.product)
   productImages: ProductImage[];
+
+  @ManyToOne(() => User, (user) => user.products)
+  seller: User;
 }
