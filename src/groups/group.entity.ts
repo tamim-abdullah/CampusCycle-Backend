@@ -17,6 +17,9 @@ export class Group {
   @Column()
   name: string;
 
+  @Column()
+  groupType: string; // "LOCAL" OR "GLOBAL"
+
   @Column({ nullable: true })
   imageurl: string;
 
